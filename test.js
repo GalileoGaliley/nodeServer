@@ -7,16 +7,18 @@ const colors = require('colors');
 var base = '/publicHtml';
 
 http.createServer(function (req, res) {
-
+    if(req.url = '/'){
+        req.url = '/main'
+    }
     let pathname = path.join(__dirname + base + req.url);
 
-    console.log(pathname.green);
+    console.log(pathname.blue);
 
     let fileExt = path.extname(pathname);
 
-    if (!fileExt) 
-        pathname += '.html'; 
-
+    if (!fileExt){
+            pathname += '.html'; 
+        }
     	if (path.basename(pathname) == null) {
     		res.writeHead(404);
     		res.write('Страница не найдена 404\n');
