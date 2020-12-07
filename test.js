@@ -7,8 +7,15 @@ const colors = require('colors');
 var base = '/publicHtml';
 
 http.createServer(function (req, res) {
-    let pathname = base + req.url + '.html';
+
+    let pathname = path.join(__dirname + base + req.url);
+
     console.log(pathname.green);
+
+    let fileExt = path.extname(pathname);
+
+    if (!fileExt) 
+        pathname += '.html'; 
 
     	if (path.basename(pathname) == null) {
     		res.writeHead(404);
