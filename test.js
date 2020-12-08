@@ -7,8 +7,8 @@ const colors = require('colors');
 var base = '/publicHtml';
 
 http.createServer(function (req, res) {
-    if(req.url = '/'){
-        req.url = '/main'
+    if(req.url === '/'){
+        req.url = '/index'
     }
     let pathname = path.join(__dirname + base + req.url);
 
