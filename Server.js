@@ -1,31 +1,42 @@
 const http = require('http');
 const path = require('path');
 
+const PORT = 3756;
 const fs = require('fs');
 const colors = require('colors');
-const PORT = 3000;
+
 var base = '/build';
 
 http.createServer(function (req, res) {
     if(req.url === '/'){
-        req.url = '/index'
+        req.url = '/index.html'
     }
     let pathname = path.join(__dirname + base + req.url);
 
     console.log(pathname.blue);
 
-    let fileExt = path.extname(pathname);
+    var fileExt = path.extname(pathname);
+   
 
-    if (!fileExt){
-            pathname += '.html'; 
-        }
         if (path.basename(pathname) == null) {
             res.writeHead(404);
             res.write('Страница не найдена 404\n');
             res.end();
         }else{
             let file = fs.createReadStream(pathname);
-            res.setHeader('Content-type', 'text/html');
+            console.log(fileExt.yellow);
+            switch(fileExt){
+                case '.html':
+                    res.setHeader('Content-type', 'text/html');
+                    break;
+                case '.css':
+                    res.setHeader('Content-type', 'text/css');
+                    break;
+                case '.js':
+                    res.setHeader('Content-type', 'text/javascript');
+                    break;
+            };
+            
             res.statusCode = 200;
 
             file.on('open',function () {
@@ -39,3 +50,7 @@ http.createServer(function (req, res) {
         // body...
 }).listen(PORT);
 console.log(`Server run on port ${PORT}`.green);
+
+   // if (!fileExt){
+   //          pathname += '.html'; 
+   //      }
