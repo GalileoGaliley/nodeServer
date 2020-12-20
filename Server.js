@@ -1,6 +1,5 @@
 const http = require('http');
 const path = require('path');
-const bodyParser = require('body-parser');
 
 const fs = require('fs');
 const colors = require('colors');
@@ -9,7 +8,6 @@ const PORT = 3756;
 var base = '/build';
 
 http.createServer(function (req, res) {
-    var urlencodedParser = bodyParser.urlencoded({extended: false});
 
     if(req.url === '/'){
         req.url = '/index.html'
