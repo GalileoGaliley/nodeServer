@@ -1,19 +1,23 @@
 const http = require('http');
 const path = require('path');
+const bodyParser = require('body-parser');
 
-const PORT = 3756;
 const fs = require('fs');
 const colors = require('colors');
 
+const PORT = 3756;
 var base = '/build';
 
 http.createServer(function (req, res) {
+    var urlencodedParser = bodyParser.urlencoded({extended: false});
+
     if(req.url === '/'){
         req.url = '/index.html'
     }
     let pathname = path.join(__dirname + base + req.url);
 
     console.log(pathname.blue);
+
 
     var fileExt = path.extname(pathname);
    
@@ -46,10 +50,24 @@ http.createServer(function (req, res) {
             file.on('error', function (err) {
                 console.log(err.red);
             });
+            
+
         }
-        // body...
-}).listen(PORT);
+        if (req.method === 'POST') {
+            console.log('method POST')
+            let body = '';
+            req.on('data', function(chunk){
+            let form = decodeURI(chunk);
+            console.log(form);
+        });
+        }else{
+            console.log('method GET')
+        }
+        console.log(req.method + " Method".yellow)
+}).listen(PORT); 
+
 console.log(`Server run on port ${PORT}`.green);
+
 
    // if (!fileExt){
    //          pathname += '.html'; 
