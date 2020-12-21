@@ -1,21 +1,25 @@
 const http = require('http');
 const path = require('path');
+const mailer = require('./nodemailer');;
+
+
 
 const fs = require('fs');
 const colors = require('colors');
 
-const PORT = 3756;
+const PORT = 3000;
 var base = '/build';
 
 http.createServer(function (req, res) {
-
+    
     if(req.url === '/'){
         req.url = '/index.html'
-    }
+    };
+
     let pathname = path.join(__dirname + base + req.url);
 
-    console.log(pathname.blue);
 
+    console.log(pathname.blue);
 
     var fileExt = path.extname(pathname);
    
@@ -56,11 +60,18 @@ http.createServer(function (req, res) {
             let body = '';
             req.on('data', function(chunk){
             let form = decodeURI(chunk);
-            console.log(form);
+            const message = {
+                from: '<ThePursuer@mail.ru>',
+                to: 'ThePursuer@mail.ru',
+                subject:'Work',
+                text:'Новый : ' + form
+            }
+            mailer(message);
         });
         }else{
-            console.log('method GET')
+            console.log('method GET');
         }
+        
         console.log(req.method + " Method".yellow)
 }).listen(PORT); 
 
