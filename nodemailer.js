@@ -4,12 +4,12 @@ const nodemailer = require('nodemailer');
 
 
 let transporter = nodemailer.createTransport({
-        host: 'smtp.inbox.ru',
+        host: 'smtp.mail.ru',
         port: 465,
         secure: true,
         auth: {
-            user: 'u login?',
-            pass: 'u pass?'
+            user: 'neutrino.web.study@inbox.ru',
+            pass: 'Neytrino121'
         }
     });
     
