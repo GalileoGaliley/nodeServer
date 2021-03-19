@@ -9,19 +9,19 @@ let transporter = nodemailer.createTransport({
         secure: true,
         auth: {
             user: 'neutrino.web.study@inbox.ru',
-            pass: 'Neytrino121'
+            pass: 'Neytrino1212'
         }
     });
-    
+
 
 const mailer = message =>{
   transporter.sendMail(message, (err,info) =>{
     if(err){
-      console.log(err)
+      console.log(err.red)
     }
     console.log('email sent: ' + info)
   }
 )};
 
 
-module.exports = mailer; 
+module.exports = mailer;
